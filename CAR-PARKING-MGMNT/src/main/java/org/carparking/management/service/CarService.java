@@ -51,11 +51,11 @@ public class CarService {
 	}
 	
 	public Car getCarParkingDetails(Car cars) throws Exception {
-		Car getCar = null;
+		Car getCarDetails = null;
 		try {
-			getCar = carRepository.findByCarNo(cars.getCarNo());
+			getCarDetails = carRepository.findByCarNo(cars.getCarNo());
 			
-			if(getCar==null)
+			if(getCarDetails==null)
 			{
 				throw new Exception(" Get Car Details Not Found ");
 			}
@@ -63,7 +63,7 @@ public class CarService {
 		} catch (Exception e) {
 			System.out.println("My Error :" + e);
 		}
-		return getCar;
+		return getCarDetails;
 	}
 
 	private Long getDifferenceDays(Date checkIn, Date checkOut) {

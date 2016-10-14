@@ -59,9 +59,9 @@ public class CarController {
 		return updatedCar;
 	}
 
-	@RequestMapping(value = "/carDetails", method = RequestMethod.PUT)
-	@ApiOperation(value = "Car Parking Get Service", notes = "Returns a Car parking service details. SLA:500", response = Car.class)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retrived Car Parked Details Successfully", response = Car.class),
+	@RequestMapping(value = "/getCarDetails", method = RequestMethod.PUT)
+	@ApiOperation(value = "Get Car Parking Details Service", notes = "Returns a Car parking service details. SLA:500", response = Car.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully Retrived Car Parking Details ", response = Car.class),
 			@ApiResponse(code = 400, message = "Invalid Input Provided"),
 			@ApiResponse(code = 404, message = "Car Parking Deatils Does Not Exist") })
 	public Car getParkedCarDetails(@RequestBody Car cars) {
@@ -69,7 +69,7 @@ public class CarController {
 		Car getCarDetails = null;
 		try {
 			validateCarParking(cars);
-			getCarDetails = carService.doCarParkingCheckOut(cars);
+			getCarDetails = carService.getCarParkingDetails(cars);
 		} catch (Exception e) {
 			System.out.println("My Exception in Controller : " + e);
 		}
