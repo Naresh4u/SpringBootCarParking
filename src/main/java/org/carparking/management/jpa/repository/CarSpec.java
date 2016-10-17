@@ -68,8 +68,16 @@ public class CarSpec implements Specification<Car> {
 					criteria.add(cb.equal(root.get("parkingCharge"), car.getParkingCharge()));
 				}
 
-				if (car.getTotalParkedTime() != null) {
-					criteria.add(cb.equal(root.get("totalParkedTime"), car.getTotalParkedTime()));
+				if (car.getParkedTimeInminitues() != null) {
+					criteria.add(cb.equal(root.get("parkedTimeInminitues"), car.getParkedTimeInminitues()));
+				}
+				
+				if (car.getParkedTimeInhours() != null) {
+					criteria.add(cb.equal(root.get("parkedTimeInhours"), car.getParkedTimeInhours()));
+				}
+				
+				if (car.getParkedTimeIndays() != null) {
+					criteria.add(cb.equal(root.get("parkedTimeIndays"), car.getParkedTimeIndays()));
 				}
 			}
 		}

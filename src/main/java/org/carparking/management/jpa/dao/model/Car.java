@@ -1,5 +1,6 @@
 package org.carparking.management.jpa.dao.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "carparking")
 public class Car {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "car_no")
@@ -33,8 +35,14 @@ public class Car {
 	@Column(name = "owner_name")
 	private String ownerName;
 
-	@Column(name = "total_parked_time")
-	private Long totalParkedTime;
+	@Column(name = "parked_time_indays")
+	private Long parkedTimeIndays;
+
+	@Column(name = "parked_time_inhours")
+	private Long parkedTimeInhours;
+
+	@Column(name = "parked_time_inminitues")
+	private Long parkedTimeInminitues;
 
 	@Column(name = "parking_charge")
 	private Long parkingCharge;
@@ -90,16 +98,32 @@ public class Car {
 		this.ownerName = ownerName;
 	}
 
-	public Long getTotalParkedTime() {
-		return this.totalParkedTime;
+	public Long getParkedTimeIndays() {
+		return this.parkedTimeIndays;
 	}
 
-	public void setTotalParkedTime(Long totalParkedTime) {
-		this.totalParkedTime = totalParkedTime;
+	public void setParkedTimeIndays(Long parkedTimeIndays) {
+		this.parkedTimeIndays = parkedTimeIndays;
+	}
+
+	public Long getParkedTimeInhours() {
+		return this.parkedTimeInhours;
+	}
+
+	public void setParkedTimeInhours(Long parkedTimeInhours) {
+		this.parkedTimeInhours = parkedTimeInhours;
+	}
+
+	public Long getParkedTimeInminitues() {
+		return this.parkedTimeInminitues;
+	}
+
+	public void setParkedTimeInminitues(Long parkedTimeInminitues) {
+		this.parkedTimeInminitues = parkedTimeInminitues;
 	}
 
 	public Long getParkingCharge() {
-		return parkingCharge;
+		return this.parkingCharge;
 	}
 
 	public void setParkingCharge(Long parkingCharge) {

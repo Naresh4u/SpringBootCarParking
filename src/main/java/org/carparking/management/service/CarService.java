@@ -1,6 +1,8 @@
 package org.carparking.management.service;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import org.carparking.management.jpa.dao.model.Car;
 import org.carparking.management.jpa.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +39,18 @@ public class CarService {
 			if (date == null || date.equals("")) {
 				carUpdated.setCheckOut(new Date());
 			}
-			Long totalParkTym = getDifferenceDays(carUpdated.getCheckIn(), carUpdated.getCheckOut());
-			carUpdated.setTotalParkedTime(totalParkTym);
-			Long pcharge = calParkingTime(totalParkTym, 0L, 0L);
-			if (pcharge!=null) {
+			Long parkedTimeIndays = calTymInDays(carUpdated.getCheckIn(), carUpdated.getCheckOut());
+
+			Long parkedTimeInhours = calTymInHours(carUpdated.getCheckIn(), carUpdated.getCheckOut());
+
+			Long parkedTimeInminitues = calTymInMinitues(carUpdated.getCheckIn(), carUpdated.getCheckOut());
+
+			carUpdated.setParkedTimeInminitues(parkedTimeInminitues);
+			carUpdated.setParkedTimeInhours(parkedTimeInhours);
+			carUpdated.setParkedTimeIndays(parkedTimeIndays);
+
+			Long pcharge = calParkingTime(parkedTimeIndays, parkedTimeInhours, parkedTimeIndays);
+			if (pcharge != null) {
 				carUpdated.setParkingCharge(pcharge);
 			}
 			onCar = carRepository.save(carUpdated);
@@ -49,33 +59,68 @@ public class CarService {
 		}
 		return onCar;
 	}
+
+	private Long calParkingTime(Long days, Long hours, Long minutes) throws NullPointerException {
+		Long zero=0L;
+		if(days!=null && hours!=null && minutes!=null)
+		{
+			return (days * 20) + (hours * 2) + (minutes * 1);
+		}
+		else if(days==zero && hours!=null && minutes!=null)
+		{
+			return (hours * 2) + (minutes * 1);
+		}
+		else if(days!=null && hours==zero && minutes!=null)
+		{
+			return (days * 20) + (minutes * 1);
+		}
+		else if(days!=null && hours!=null && minutes==zero)
+		{
+			return (days * 20) + (hours * 2);
+		}
+		else
+		{
+			return zero;
+		}
+	}
 	
 	public Car getCarParkingDetails(Car cars) throws Exception {
 		Car getCarDetails = null;
 		try {
 			getCarDetails = carRepository.findByCarNo(cars.getCarNo());
-			
-			if(getCarDetails==null)
-			{
+
+			if (getCarDetails == null) {
 				throw new Exception(" Get Car Details Not Found ");
 			}
-		
+
 		} catch (Exception e) {
 			System.out.println("My Error :" + e);
 		}
 		return getCarDetails;
 	}
 
-	private Long getDifferenceDays(Date checkIn, Date checkOut) {
-		Long daysdiff;
-		long diff = checkOut.getTime() - checkIn.getTime();
-		long diffDays = diff / (24 * 60 * 60 * 1000) + 1;
-		daysdiff = diffDays;
-		return daysdiff;
+	private Long calTymInDays(Date d1, Date d2) {
+		long diff = d2.getTime() - d1.getTime();// as given
+
+		long days = TimeUnit.MILLISECONDS.toDays(diff);
+		System.out.println("days !!!!! " + days);
+		return days;
 	}
 
-	private Long calParkingTime(Long days, Long hours, Long minutes) {
-		return (days * 20) + (hours * 4) + (minutes * 2);
+	private Long calTymInHours(Date d1, Date d2) {
+		long diff = d2.getTime() - d1.getTime();// as given
+
+		long hours = TimeUnit.MILLISECONDS.toHours(diff);
+		System.out.println("hours !!!!! " + hours);
+		return hours;
+	}
+
+	private Long calTymInMinitues(Date d1, Date d2) {
+		long diff = d2.getTime() - d1.getTime();// as given
+
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+		System.out.println("minutes !!!!! " + minutes);
+		return minutes;
 	}
 
 	private Car validateUpdateFields(Car car, Car existingcar) {
@@ -92,7 +137,7 @@ public class CarService {
 
 		String ownerName = car.getOwnerName();
 
-		Long totalParkedTime = car.getTotalParkedTime();
+		Long parkedTimeIndays = car.getParkedTimeIndays();
 
 		Long parkingCharge = car.getParkingCharge();
 
@@ -114,8 +159,8 @@ public class CarService {
 		car.setOwnerName(validateNullOrEmptyField(ownerName) ? existingcar.getOwnerName()
 				: (validateNullOrEmptyField(ownerName) ? null : ownerName));
 
-		car.setTotalParkedTime(validateLongField(totalParkedTime) ? existingcar.getTotalParkedTime()
-				: (validateLongField(totalParkedTime) ? null : totalParkedTime));
+		car.setParkedTimeIndays(validateLongField(parkedTimeIndays) ? existingcar.getParkedTimeIndays()
+				: (validateLongField(parkedTimeIndays) ? null : parkedTimeIndays));
 
 		car.setParkingCharge(validateLongField(parkingCharge) ? existingcar.getParkingCharge()
 				: (validateLongField(parkingCharge) ? null : parkingCharge));
