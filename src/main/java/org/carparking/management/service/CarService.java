@@ -101,25 +101,19 @@ public class CarService {
 
 	private Long calTymInDays(Date d1, Date d2) {
 		long diff = d2.getTime() - d1.getTime();// as given
-
 		long days = TimeUnit.MILLISECONDS.toDays(diff);
-		System.out.println("days !!!!! " + days);
 		return days;
 	}
 
 	private Long calTymInHours(Date d1, Date d2) {
 		long diff = d2.getTime() - d1.getTime();// as given
-
 		long hours = TimeUnit.MILLISECONDS.toHours(diff);
-		System.out.println("hours !!!!! " + hours);
 		return hours;
 	}
 
 	private Long calTymInMinitues(Date d1, Date d2) {
 		long diff = d2.getTime() - d1.getTime();// as given
-
 		long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
-		System.out.println("minutes !!!!! " + minutes);
 		return minutes;
 	}
 
