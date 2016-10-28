@@ -1,5 +1,7 @@
 # SpringBootCarParking
 
+# Service URL: http://localhost:8888/swagger-ui.html
+
 Parking lot automation
 
 Develop a parking lot ticketing component which will support have 3 types of parking spaces (small, medium, large). The number of spaces should be configurable for each type. Whenever a car comes in, it will check for the availability based on parking history and either allocates the slot to the right car based on car size. Cars will be charged based on sizes, configurable. [Small à $2/hrs, ($ 10/day), medium à 3 $/hrs. ($ 15/day), large à $ 5/hrs. ($ 20/day)].
