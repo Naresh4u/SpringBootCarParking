@@ -1,6 +1,6 @@
 # SpringBootCarParking
 
-# Service URL: http://localhost:8888/swagger-ui.html
+@ Service End Point URL: http://localhost:8888/swagger-ui.html
 
 Parking lot automation
 
