@@ -28,3 +28,27 @@ Artifact Expected
 
 -        Code as a Maven project, which can be imported into Eclipse.
 
+
+CheckIn-Request Sample:
+-----------------------
+{
+  "carNo": "DX007",
+  "carType": "BenZZZ",
+  "owerMblNo": "123456789",
+  "ownerName": "Naresh Dasari"
+}
+
+CheckOut-Request Sample:
+------------------------
+{
+  "carNo": "DX007"
+}
+
+GetDetails - Request Sample
+---------------------------
+{
+  "carNo": "DX007"
+}
+
+
+

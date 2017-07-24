@@ -42,7 +42,7 @@ public class CarController {
 		return car;
 	}
 
-	@RequestMapping(value = "/carCheckOut", method = RequestMethod.PUT)
+	@RequestMapping(value = "/carCheckOut", method = RequestMethod.POST)
 	@ApiOperation(value = "Car Parking Check-Out Service", notes = "Returns a car parking check-out service details. SLA:500", response = Car.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Car Check-Out Successfully", response = Car.class),
 			@ApiResponse(code = 400, message = "Invalid Input Provided"),
@@ -59,12 +59,29 @@ public class CarController {
 		return updatedCar;
 	}
 
-	@RequestMapping(value = "/getCarDetails", method = RequestMethod.PUT)
+	@RequestMapping(value = "/getCarDetails", method = RequestMethod.POST)
 	@ApiOperation(value = "Get Car Parking Details Service", notes = "Returns a Car parking service details. SLA:500", response = Car.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully Retrived Car Parking Details ", response = Car.class),
 			@ApiResponse(code = 400, message = "Invalid Input Provided"),
 			@ApiResponse(code = 404, message = "Car Parking Deatils Does Not Exist") })
 	public Car getParkedCarDetails(@RequestBody Car cars) {
+
+		Car getCarDetails = null;
+		try {
+			validateCarParking(cars);
+			getCarDetails = carService.getCarParkingDetails(cars);
+		} catch (Exception e) {
+			System.out.println("My Exception in Controller : " + e);
+		}
+		return getCarDetails;
+	}
+	
+	@RequestMapping(value = "/updateCarDetails", method = RequestMethod.POST)
+	@ApiOperation(value = "Get Car Parking Details Service", notes = "Returns a Car parking service details. SLA:500", response = Car.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully Retrived Car Parking Details ", response = Car.class),
+			@ApiResponse(code = 400, message = "Invalid Input Provided"),
+			@ApiResponse(code = 404, message = "Car Parking Deatils Does Not Exist") })
+	public Car updatedParkedCarDetails(@RequestBody Car cars) {
 
 		Car getCarDetails = null;
 		try {
