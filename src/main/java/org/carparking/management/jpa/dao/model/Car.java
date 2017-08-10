@@ -1,6 +1,5 @@
 package org.carparking.management.jpa.dao.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +13,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "carparking")
 public class Car {
+    
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
 	@Id

@@ -19,5 +19,4 @@ public interface CarRepository extends JpaRepository<Car, String> {
 	
 	List<Car> findAll(Specification<Car> car, Sort dir);
 	    
-
 }

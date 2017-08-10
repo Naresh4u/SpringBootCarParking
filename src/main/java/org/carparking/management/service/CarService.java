@@ -1,6 +1,5 @@
 package org.carparking.management.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -135,6 +134,7 @@ public class CarService {
 		return minutes;
 	}
 
+	@SuppressWarnings("unused")
 	private Car validateUpdateFields(Car car, Car existingcar) {
 
 		String carNo = car.getCarNo();
