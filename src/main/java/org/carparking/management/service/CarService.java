@@ -1,11 +1,15 @@
 package org.carparking.management.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.carparking.management.jpa.dao.model.Car;
 import org.carparking.management.jpa.repository.CarRepository;
+import org.carparking.management.jpa.repository.CarSpectwo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 /**
@@ -84,7 +88,7 @@ public class CarService {
 		}
 	}
 	
-	public Car getCarParkingDetails(Car cars) throws Exception {
+	public Car getCarParkingDetailsByCarNo(Car cars) throws Exception {
 		Car getCarDetails = null;
 		try {
 			getCarDetails = carRepository.findByCarNo(cars.getCarNo());
@@ -98,6 +102,20 @@ public class CarService {
 		}
 		return getCarDetails;
 	}
+
+	public List<Car> getCarDetailsByCriteria(Car car) throws Exception {
+	   	List<Car> carList = null;
+
+	   	try {
+	   	 carList = carRepository.findAll(new CarSpectwo(car),
+	   		    new org.springframework.data.domain.Sort(Direction.DESC, "carNo"));
+	   	 
+	   	} catch (Exception e) {
+	   	    
+	   	}
+	   	return carList;
+	   }
+
 
 	private Long calTymInDays(Date d1, Date d2) {
 		long diff = d2.getTime() - d1.getTime();// as given
