@@ -111,6 +111,23 @@ public class CarController {
 		}
 		return getCarDetails;
 	}
+	@RequestMapping(value = "/deleteCarDetailsByCriteria", method = RequestMethod.POST)
+	@ApiOperation(value = "Get Car Parking Details Service", notes = "Returns a Car parking service details. SLA:500", response = Car.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully Retrived Car Parking Details ", response = Car.class),
+			@ApiResponse(code = 400, message = "Invalid Input Provided"),
+			@ApiResponse(code = 404, message = "Car Parking Deatils Does Not Exist") })
+	public String delateParkedCarDetailsByCriteria(@RequestBody Car cars) {
+
+		List<Car> getCarDetails = null;
+		String str= null;
+		try {
+			validateCarParking(cars);
+			str= carService.deleteCarDetailsByCriteria(cars);
+		} catch (Exception e) {
+			System.out.println("My Exception in Controller : " + e);
+		}
+		return str;
+	}
 
 
 	private void validateCarParking(Car cars) {

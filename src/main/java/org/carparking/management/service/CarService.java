@@ -1,5 +1,6 @@
 package org.carparking.management.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -9,6 +10,7 @@ import org.carparking.management.jpa.repository.CarRepository;
 import org.carparking.management.jpa.repository.CarSpectwo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 /**
@@ -114,8 +116,27 @@ public class CarService {
 	   	}
 	   	return carList;
 	   }
-
-
+	public String deleteCarDetailsByCriteria(Car car) throws Exception {
+	   	List<Car> carList = null;
+	   //	List<Car> cars = null;
+	   	try {
+	   	 carList = carRepository.findAll(new CarSpectwo(car),
+	   		    new org.springframework.data.domain.Sort(Direction.DESC, "carNo"));
+	   	 ArrayList<Car> al= new ArrayList<>();
+	   	
+	   	 for(Car carIn : carList)
+	   	 {
+	   		 al.add(carIn);
+	   		 System.out.println(" Car No's List :" +carIn.getCarNo());
+	   		 carRepository.delete(carIn.getCarNo());
+	   		 
+	   	 }
+	   	 
+	   	} catch (Exception e) {
+	   	    
+	   	}
+	   	return "Deleted Successfully";
+	   }
 	private Long calTymInDays(Date d1, Date d2) {
 		long diff = d2.getTime() - d1.getTime();// as given
 		long days = TimeUnit.MILLISECONDS.toDays(diff);
