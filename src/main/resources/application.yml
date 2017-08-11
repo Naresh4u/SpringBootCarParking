@@ -20,9 +20,9 @@ spring:
  profiles: development
 parking.datasource:
   driverClassName: com.mysql.jdbc.Driver
-  url: jdbc:mysql://localhost:3306/test
+  url: jdbc:mysql://localhost:3306/carparking
   username: ${IVP_ORCH_DB_USERID:root}
-  password: ${IVP_ORCH_DB_PASSWD:tiger}
+  password: ${IVP_ORCH_DB_PASSWD:viki}
   accessToUnderlyingConnectionAllowed: true
   max-active: 25
   max-idle: 10
